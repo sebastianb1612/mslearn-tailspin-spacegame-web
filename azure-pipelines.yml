@@ -31,6 +31,8 @@ steps:
 - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
   displayName: 'Write build info'
   workingDirectory: $(wwwrootDir)
+- task: WhiteSource Bolt@20
+  displayName: 'Run WhiteSource Bolt'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
@@ -54,8 +56,7 @@ steps:
     arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
     zipAfterPublish: true
 
-- task: WhiteSource Bolt@20
-  displayName: 'Run WhiteSource Bolt'
+
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
